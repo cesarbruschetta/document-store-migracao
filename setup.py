@@ -23,6 +23,7 @@ requires = [
     "minio",
     "tqdm",
     "fs",
+    "prometheus_client",
 ]
 
 tests_require = [

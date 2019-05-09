@@ -29,10 +29,16 @@ def main_migrate_articlemeta():
 
 
 def main_migrate_isis():
+    # Start up the server to expose the metrics.
+    start_http_server(int(config.get("PROMETHEUS_SCRAPE_PORT")))
+
     sys.exit(migrate_isis_parser(sys.argv[1:]))
 
 
 def tools():
+    # Start up the server to expose the metrics.
+    start_http_server(int(config.get("PROMETHEUS_SCRAPE_PORT")))
+
     sys.exit(tools_parser(sys.argv[1:]))
 
 
