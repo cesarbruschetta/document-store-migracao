@@ -4,13 +4,14 @@ import shutil
 from tqdm import tqdm
 from packtools import XMLValidator, exceptions
 
-from documentstore_migracao.utils import files, dicts
+from documentstore_migracao.utils import files, dicts, prometheus
 from documentstore_migracao import config
 from lxml import etree
 
 logger = logging.getLogger(__name__)
 
 
+@prometheus.monitor_time_run
 def validate_article_xml(file_xml_path, print_error=True):
 
     result = {}

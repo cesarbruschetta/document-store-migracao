@@ -3,7 +3,7 @@ import sys
 import os
 import json
 from documentstore_migracao import exceptions, config
-from documentstore_migracao.utils import extract_isis
+from documentstore_migracao.utils import extract_isis, prometheus
 from documentstore_migracao.processing import reading, conversion
 from documentstore.interfaces import Session
 from documentstore.domain import utcnow
@@ -45,6 +45,7 @@ def filter_issues(issues: list) -> list:
     return issues
 
 
+@prometheus.monitor_time_run
 def import_journals(json_file: str, session: Session):
     """Fachada com passo a passo de processamento e carga de periódicos
     em formato JSON para a base Kernel"""
@@ -69,6 +70,7 @@ def import_journals(json_file: str, session: Session):
         logger.debug(str(exc))
 
 
+@prometheus.monitor_time_run
 def import_issues(json_file: str, session: Session):
     """Fachada com passo a passo de processamento e carga de fascículo
     em formato JSON para a base Kernel"""
@@ -94,6 +96,7 @@ def import_issues(json_file: str, session: Session):
             logger.info(str(exc))
 
 
+@prometheus.monitor_time_run
 def import_documents_bundles_link_with_journal(file_path: str, session: Session):
     """Fachada responsável por ler o arquivo de link entre
     journals e documents bundles e atualizar os journals com os
@@ -132,6 +135,7 @@ def import_documents_bundles_link_with_journal(file_path: str, session: Session)
             )
 
 
+@prometheus.monitor_time_run
 def link_documents_bundles_with_journals(issue_path: str, output_path: str):
     """Busca pelo relacionamento entre periódicos e fascículos a partir
     de arquivos JSON extraídos de uma base MST. O resultado é escrito

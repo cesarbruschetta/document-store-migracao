@@ -3,6 +3,8 @@
 import sys
 import logging
 
+
+from documentstore_migracao import config
 from .migrate_isis import migrate_isis_parser
 from .migrate_articlemeta import migrate_articlemeta_parser
 from .tools import tools_parser
@@ -29,16 +31,10 @@ def main_migrate_articlemeta():
 
 
 def main_migrate_isis():
-    # Start up the server to expose the metrics.
-    start_http_server(int(config.get("PROMETHEUS_SCRAPE_PORT")))
-
     sys.exit(migrate_isis_parser(sys.argv[1:]))
 
 
 def tools():
-    # Start up the server to expose the metrics.
-    start_http_server(int(config.get("PROMETHEUS_SCRAPE_PORT")))
-
     sys.exit(tools_parser(sys.argv[1:]))
 
 

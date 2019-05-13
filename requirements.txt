@@ -7,8 +7,6 @@ chardet==3.0.4
 colander==1.7.0
 cornice==3.5.1
 cornice-swagger==0.7.0
-coverage==4.5.2
--e git+git@github.com:cesarbruschetta/document-store-migracao.git@08f57e247ef0882a4d91a3eac7a48adca50b4cf5#egg=documentstore_migracao
 hupper==1.6.1
 idna==2.8
 iso8601==0.1.12

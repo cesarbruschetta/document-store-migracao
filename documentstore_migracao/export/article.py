@@ -2,7 +2,7 @@
 import logging
 from articlemeta.client import RestfulClient
 from documentstore_migracao import config
-from documentstore_migracao.utils import request
+from documentstore_migracao.utils import request, prometheus
 from documentstore.domain import retry_gracefully
 from requests.exceptions import HTTPError, ConnectTimeout, ConnectionError
 from urllib3.exceptions import MaxRetryError
@@ -48,6 +48,7 @@ def ext_article_json(code, **ext_params):
         return article.json()
 
 
+@prometheus.monitor_time_run
 def ext_article_txt(code, **ext_params):
     logger.debug("\t Arquivo XML '%s' extraido", code)
     article = ext_article(code, body="true", format="xmlrsps", **ext_params)

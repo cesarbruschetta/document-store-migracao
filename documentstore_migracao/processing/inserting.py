@@ -6,7 +6,7 @@ import logging
 from typing import List, Tuple
 from mimetypes import MimeTypes
 import lxml
-from documentstore_migracao.utils import files, xml, manifest, scielo_ids_generator
+from documentstore_migracao.utils import files, xml, manifest, scielo_ids_generator, prometheus
 
 from documentstore_migracao import config, exceptions
 from documentstore_migracao.export.sps_package import DocumentsSorter, SPS_Package
@@ -137,6 +137,7 @@ def put_static_assets_into_storage(
     return _assets
 
 
+@prometheus.monitor_time_run
 def register_document(folder: str, session_db, storage) -> None:
 
     logger.info("Processando a Pasta %s", folder)

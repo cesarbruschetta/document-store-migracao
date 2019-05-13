@@ -4,6 +4,7 @@ import shlex
 import subprocess
 from documentstore_migracao import config, exceptions
 
+from documentstore_migracao.utils import prometheus 
 logger = logging.getLogger(__name__)
 
 
@@ -19,7 +20,7 @@ def create_output_dir(path):
         logger.debug("Creating folder: %s", output_dir)
         os.makedirs(output_dir)
 
-
+@prometheus.monitor_time_run
 def run(path: str, output_file: str):
     """Roda um subprocesso com o isis2json de target para extrair dados
     de uma base ISIS em formato MST. O resultado da extração

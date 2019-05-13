@@ -5,13 +5,14 @@ from tqdm import tqdm
 from lxml import etree
 from typing import List
 from xylose.scielodocument import Journal, Issue
-from documentstore_migracao.utils import files, xml, string, xylose_converter
+from documentstore_migracao.utils import files, xml, string, xylose_converter, prometheus
 from documentstore_migracao.export.sps_package import SPS_Package
 from documentstore_migracao import config
 
 logger = logging.getLogger(__name__)
 
 
+@prometheus.monitor_time_run
 def convert_article_xml(file_xml_path):
 
     obj_xmltree = xml.loadToXML(file_xml_path)
